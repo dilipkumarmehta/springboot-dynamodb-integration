@@ -2,6 +2,10 @@ package com.capgemini.demo;
 
 import java.io.Serializable;
 
+/**
+ * @author dimehta
+ *
+ */
 public class UserInfo implements Serializable {
 	
 	private String userName;

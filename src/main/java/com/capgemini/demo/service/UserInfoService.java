@@ -1,7 +1,14 @@
 package com.capgemini.demo.service;
 
-import com.capgemini.demo.UserInfo;
+import java.util.List;
 
+import com.capgemini.demo.UserInfo;
+import com.capgemini.demo.page.PagiNamtion;
+
+/**
+ * @author dimehta
+ *
+ */
 public interface UserInfoService {
 
 
@@ -12,5 +19,7 @@ public interface UserInfoService {
 	public String UpdateUserInfo(UserInfo userInfo);
 	
 	public String deleteUserInfo(String userId);
+	
+	public List<UserInfo>  getAllUserInfo(String id,PagiNamtion pagiNamtion );
 	
 }

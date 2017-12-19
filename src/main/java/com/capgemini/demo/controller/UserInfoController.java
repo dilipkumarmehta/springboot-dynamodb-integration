@@ -1,5 +1,7 @@
 package com.capgemini.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,8 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.demo.UserInfo;
+import com.capgemini.demo.page.SearchInput;
 import com.capgemini.demo.service.UserInfoService;
 
+/**
+ * @author dimehta
+ *
+ */
 @RestController
 public class UserInfoController {
 
@@ -40,5 +47,13 @@ public class UserInfoController {
 		return userInfoService.deleteUserInfo(id);
 
 	}
+	//http://localhost:8080/listPageable?page=0&size=3&sort=name
+	@RequestMapping(value = "/users/getall", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public  List<UserInfo> getAllUserInfo(@RequestBody SearchInput searchInput) {
+		System.out.println("hello" + searchInput);
+		System.out.println(searchInput.getId() +searchInput.getPagiNamtion().getLimit() +searchInput.getPagiNamtion().getOffset());
+		
+		return userInfoService.getAllUserInfo(searchInput.getId(), searchInput.getPagiNamtion());
 
+	}
 }

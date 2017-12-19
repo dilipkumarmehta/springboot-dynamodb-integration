@@ -77,9 +77,18 @@
 			<artifactId>aws-java-sdk-core</artifactId>
 			<version>${amazon.version}</version>
 		</dependency>
+		 <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+    </dependency>
 
 
 
+		 <dependency>
+		 	<groupId>org.springframework.data</groupId>
+		 	<artifactId>spring-data-commons</artifactId>
+		 </dependency>
 	</dependencies>
 	<!-- This dependency is used the make jar jar file with main method -->
 	<build>
