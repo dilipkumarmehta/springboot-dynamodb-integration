@@ -13,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.capgemini.demo.UserInfo;
 import com.capgemini.demo.page.PagiNamtion;
 
@@ -27,7 +28,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Qualifier("dbClient")
 	private AmazonDynamoDBClient dynamoDBClient;
 
-	 /* user Registration based on userId*/
+	/* user Registration based on userId */
 	@Override
 	public String registerUser(UserInfo userInfo) {
 		DynamoDB dynamoDB = new DynamoDB(dynamoDBClient);
@@ -43,13 +44,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfo getUserInfo(String id) {
-		System.out.println(id);
+	public UserInfo getUserInfo(String userId) {
 		DynamoDB dynamoDB = new DynamoDB(dynamoDBClient);
+		UserInfo userInfo = new UserInfo();
 		Table table = dynamoDB.getTable("UserInfo");
-		DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey("Id", 120);
-		DeleteItemOutcome outcome = table.deleteItem(deleteItemSpec);
-		return null;
+		GetItemSpec spec = new GetItemSpec().withPrimaryKey("userId", userId);
+		Item outcome = table.getItem(spec);
+		System.out.println("GetItem succeeded: " + outcome);
+		userInfo.setUserId(outcome.getString(userId));
+		userInfo.setEducation(outcome.getString("education"));
+		return userInfo;
+
 	}
 
 	/* if you are sending with same userId then it will update the record */
